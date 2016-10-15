@@ -21,6 +21,11 @@ exports.config = {
     inlineCss: {
       html: true,
       passthrough: [/^node_modules/, 'app/global.css']
+    },
+    sass: {
+      options: {
+        includePaths: ['node_modules/bootstrap/scss']
+      }
     }
   }
 };

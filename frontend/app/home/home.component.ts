@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {client} from '../deepstream.client';
 
 @Component({
   selector: 'home',
@@ -12,6 +13,10 @@ export default class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Hello Home component');
+    console.log('Hello Home component', client);
+
+    client.rpc.make('create:workout', {hej: 'damp'}, ( error, result ) => {
+      console.log(3333, error, result);
+    });
   }
 }
