@@ -217,6 +217,7 @@
 
     ////////// OWN //////////
 
-    "indent": ["error", 5]
+    "indent": ["error", 2],
+    "object-curly-spacing": ["error", "always"]
   }
 }

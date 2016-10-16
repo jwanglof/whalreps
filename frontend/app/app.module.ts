@@ -6,6 +6,7 @@ import {HttpModule} from '@angular/http';
 import {AppComponent} from './app.component';
 import {Home} from './home';
 import {About} from './about';
+import {WorkoutCreate, WorkoutGet} from './workout';
 import {NavBarComponent} from './navbar.component';
 
 @NgModule({
@@ -17,7 +18,14 @@ import {NavBarComponent} from './navbar.component';
     ],
     declarations: [
         AppComponent,
-        Home, About, NavBarComponent
+
+        Home,
+        About,
+        
+        WorkoutCreate,
+        WorkoutGet,
+
+        NavBarComponent
     ],
     providers: [],
     bootstrap: [AppComponent]

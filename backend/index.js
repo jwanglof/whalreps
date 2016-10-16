@@ -1,7 +1,16 @@
 const DeepstreamServer = require('deepstream.io');
 const deepstreamClient = require('deepstream.io-client-js')('localhost:6021', {});
+const RethinkDBStorageConnector = require('deepstream.io-storage-rethinkdb');
 
 const deepstreamInstance = new DeepstreamServer({});
+
+deepstreamInstance.set('storage', new RethinkDBStorageConnector({
+  port: 28015,
+  host: 'localhost',
+  splitChar: '/'
+}));
+
+import workoutRPC from './rpcs/Workout';
 
 deepstreamClient.on('connectionStateChanged', connectionState => {
   console.log('Connection state:', connectionState);
@@ -26,9 +35,6 @@ function deepstreamLogin(success, data) {
   console.log('Deepstream client login:', success, data);
 
   if (success) {
-    deepstreamClient.rpc.provide('create:workout', ( data, response ) => {
-      console.log(1111, data);
-      response.send({success: 'JUPP!'});
-    });
+    workoutRPC(deepstreamClient);
   }
 }

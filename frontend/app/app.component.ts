@@ -20,9 +20,6 @@ import {Component} from '@angular/core';
     }
   `],
   template: `
-    <header>
-      <h1>Hello {{ name }}</h1>
-    </header>
     <navbar></navbar>
     <main>
       <router-outlet></router-outlet>
@@ -33,7 +30,6 @@ import {Component} from '@angular/core';
   `
 })
 export class AppComponent {
-  name: string = 'Brunch for Angular 2';
   url: string = 'http://colin.is/blog';
   constructor() {
 

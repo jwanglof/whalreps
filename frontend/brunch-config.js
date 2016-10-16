@@ -20,9 +20,10 @@ exports.config = {
   plugins: {
     inlineCss: {
       html: true,
-      passthrough: [/^node_modules/, 'app/global.css']
+      passthrough: [/^node_modules/, 'app/global.scss']
     },
     sass: {
+      sourceMapEmbed: true,
       options: {
         includePaths: ['node_modules/bootstrap/scss']
       }
