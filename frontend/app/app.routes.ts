@@ -2,7 +2,6 @@ import {Routes, RouterModule} from '@angular/router';
 
 import {Home} from './home';
 import {About} from './about';
-import {WorkoutCreate, WorkoutGet} from './workout';
 
 export const routes: Routes = [
   {
@@ -13,14 +12,6 @@ export const routes: Routes = [
   {
     path: 'about',
     component: About
-  },
-  {
-    path: 'workout/create',
-    component: WorkoutCreate
-  },
-  {
-    path: 'workout/get/:id',
-    component: WorkoutGet
   }
 ];
 

@@ -1,7 +1,7 @@
 import {ActivatedRoute} from "@angular/router";
 import {Component, OnInit} from '@angular/core';
-import {client} from '../../deepstream.client';
-import {Workout} from '../../models/workout';
+import {DeepstreamLocalClient} from '../../deepstream.client';
+import {WorkoutModel} from '../workout.model';
 
 @Component({
     selector: 'get-workout',
@@ -16,7 +16,7 @@ export default class WorkoutCreateComponent {
     error: boolean;
     errorMessage: string;
 
-    model: Workout;
+    model: WorkoutModel;
 
      constructor(
          private route: ActivatedRoute
@@ -26,7 +26,7 @@ export default class WorkoutCreateComponent {
         console.log(111, this.route.snapshot);
         this.id = this.route.snapshot.params['id'];
 
-        client.rpc.make('workout:get', {id: this.id}, (error, result) => {
+        DeepstreamLocalClient.rpc.make('workout:get', {id: this.id}, (error, result) => {
 
             console.log(444444, error, result);
 
@@ -34,9 +34,9 @@ export default class WorkoutCreateComponent {
                 this.error = true;
                 this.errorMessage = 'Hej du!';
             } else {
-                this.model = new Workout();
-                this.model.name = result.name;
-                this.model.description = result.description;
+                this.model = new WorkoutModel();
+                // this.model.name = result.name;
+                // this.model.description = result.description;
             }
         });
     }

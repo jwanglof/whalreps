@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {client} from '../../deepstream.client';
-import {Workout} from '../../models/workout';
+import {DeepstreamLocalClient} from '../../deepstream.client';
+import {WorkoutModel} from '../workout.model';
 
 @Component({
     selector: 'workout-create-form',
@@ -8,8 +8,9 @@ import {Workout} from '../../models/workout';
     template: require('./workout.create.component.html'),
     moduleId: module.id
 })
+
 export default class WorkoutCreateComponent {
-    model: Workout;
+    model: WorkoutModel;
     
     success: boolean;
     error: boolean;
@@ -21,7 +22,7 @@ export default class WorkoutCreateComponent {
     constructor() {
         this.success = false;
         this.error = false;
-        this.model = new Workout();
+        this.model = new WorkoutModel();
     }
 
     private clearError() {
@@ -32,7 +33,7 @@ export default class WorkoutCreateComponent {
     onSubmit() {
         this.clearError();
 
-        client.rpc.make('workout:create', this.model.toJSON(), (error, result) => {
+        DeepstreamLocalClient.rpc.make('workout:create', this.model.toJSON(), (error, result) => {
             if (error) {
                 this.error = true;
                 this.errorMessage = 'Hej du!';

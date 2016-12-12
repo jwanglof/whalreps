@@ -38,6 +38,9 @@ import {Location} from '@angular/common';
         <li>
           <a routerLink="workout/create" routerLinkActive="active">Create workout</a>
         </li>
+        <li>
+          <a routerLink="workout/showAll" routerLinkActive="active">Show all workouts</a>
+        </li>
       </ul>
     </nav>
   `
