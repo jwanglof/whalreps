@@ -5,12 +5,12 @@ const RethinkDBStorageConnector = require('deepstream.io-storage-rethinkdb');
 const deepstreamInstance = new DeepstreamServer({});
 
 import workoutRPC from './rpcs/Workout';
+import exerciseRPC from './rpcs/Exercise';
 
 deepstreamInstance.set('storage', new RethinkDBStorageConnector({
   port: 28015,
   host: 'localhost',
-  splitChar: '/',
-  primaryKey: 'id'
+  splitChar: '/'
 }));
 
 deepstreamClient.on('connectionStateChanged', connectionState => {
@@ -32,6 +32,7 @@ deepstreamInstance.on('started', () => {
 
     if (success) {
       workoutRPC(deepstreamClient);
+      exerciseRPC(deepstreamClient);
     }
   });
 });

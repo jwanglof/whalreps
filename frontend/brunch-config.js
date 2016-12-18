@@ -28,5 +28,8 @@ exports.config = {
         includePaths: ['node_modules/bootstrap/scss']
       }
     }
+  },
+  server: {
+    hostname: '0.0.0.0'
   }
 };

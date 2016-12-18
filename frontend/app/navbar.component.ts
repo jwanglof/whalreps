@@ -41,6 +41,9 @@ import {Location} from '@angular/common';
         <li>
           <a routerLink="workout/showAll" routerLinkActive="active">Show all workouts</a>
         </li>
+        <li>
+          <a routerLink="workout/counter" routerLinkActive="active">Counter</a>
+        </li>
       </ul>
     </nav>
   `

@@ -9,14 +9,13 @@ export default function (deepstreamClient) {
     response.autoAck = false;
 
     const id = uuid();
-    console.log(1111, data, id);
 
-    const newRecord = deepstreamClient.record.getRecord('workout/' + id);
+    const newRecord = deepstreamClient.record.getRecord(`workout/${id}`);
     newRecord.whenReady(() => {
       newRecord.set(data);
       newRecord.discard();
 
-      response.send({id});
+      response.send(id);
     });
   });
   
@@ -26,19 +25,17 @@ export default function (deepstreamClient) {
     if (!data.id) {
       response.error('workout:get - No ID provided');
     } else {
-      deepstreamClient.record.snapshot('workout/c8d1fb64-933c-4f38-9731-d4387a9fb424', recordData => {
-        console.log(999999, recordData);
+      deepstreamClient.record.snapshot(`workout/${data.id}`, (err, recordData) => {
         if (!recordData) {
           response.error('Record does not exist!');
         } else {
-          console.log(`Returning workout ID: ${recordData.id}`);
           response.send(recordData);
         }
       });
     }
   });
 
-  deepstreamClient.rpc.provide('workout:getAll', (data, response) => {
+  deepstreamClient.rpc.provide('workout:get-all', (data, response) => {
     response.autoAck = false;
 
     RethinkWorkout.getAllWorkouts()
@@ -48,22 +45,42 @@ export default function (deepstreamClient) {
           if (workout.ds_id) {
             ids.push(workout.ds_id);
           }
-          // console.log(111, id.ds_id);
-          // const rec = deepstreamClient.record.getRecord(`workout/${id.ds_id}`);
-          // rec.whenReady(() => {
-          //   console.log(555, rec.get());
-          // })
         });
         response.send(ids);
       })
       .catch(err => {
-        console.error('Deepsream getAll error:', err);
+        console.error('Deepstream get-all error:', err);
+        response.error(err);
       });
+  });
 
-    // deepstreamClient.record.snapshot('workout/7d774f8b-a456-446a-b951-ca8ba5def777', recordData => {
-    //   console.log(4444, recordData);
-    //   response.send(recordData);
-    // })
+  deepstreamClient.rpc.provide('workout:delete', (data, response) => {
+    if (!data.id) {
+      response.error('workout:delete - No ID provided!');
+    } else {
+      const workoutRecord = deepstreamClient.record.getRecord(`workout/${data.id}`);
+      workoutRecord.whenReady(() => {
+        workoutRecord.delete();
+        response.send();
+      });
+    }
+  });
+
+  deepstreamClient.rpc.provide('workout:edit', (data, response) => {
+    console.log(2222, data);
+    if (!data.id) {
+      response.error('workout:edit - No ID provided!');
+    } else {
+      const workoutRecord = deepstreamClient.record.getRecord(`workout/${data.id}`);
+      workoutRecord.whenReady(() => {
+        workoutRecord.set({
+          name: data.name,
+          description: data.description,
+          exercises: data.exercises
+        });
+        response.send();
+      });
+    }
   });
   
 }

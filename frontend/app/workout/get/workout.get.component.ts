@@ -1,43 +1,35 @@
 import {ActivatedRoute} from "@angular/router";
-import {Component, OnInit} from '@angular/core';
-import {DeepstreamLocalClient} from '../../deepstream.client';
-import {WorkoutModel} from '../workout.model';
+import {Component, OnInit} from "@angular/core";
+import {WorkoutModel} from "../workout.model";
+import {WorkoutService} from "../workout.service";
 
 @Component({
     selector: 'get-workout',
     styles: [require('./workout.get.component.css')],
     template: require('./workout.get.component.html'),
-    moduleId: module.id
+    providers: [WorkoutService]
 })
-export default class WorkoutCreateComponent {
-
+export default class WorkoutCreateComponent implements OnInit {
     private id: string;
 
     error: boolean;
     errorMessage: string;
 
-    model: WorkoutModel;
+    model: WorkoutModel = new WorkoutModel();
 
-     constructor(
-         private route: ActivatedRoute
-     ) {}
+    constructor(private route: ActivatedRoute, private workoutService: WorkoutService) {
+        this.id = this.route.snapshot.params['id'];
+    }
 
     ngOnInit() {
-        console.log(111, this.route.snapshot);
-        this.id = this.route.snapshot.params['id'];
-
-        DeepstreamLocalClient.rpc.make('workout:get', {id: this.id}, (error, result) => {
-
-            console.log(444444, error, result);
-
-            if (error) {
+        this.workoutService.getWorkout(this.id)
+            .then(model => {
+                console.log(444333, model);
+                this.model = model;
+            })
+            .catch(err => {
                 this.error = true;
-                this.errorMessage = 'Hej du!';
-            } else {
-                this.model = new WorkoutModel();
-                // this.model.name = result.name;
-                // this.model.description = result.description;
-            }
-        });
+                this.errorMessage = err;
+            });
     }
 }

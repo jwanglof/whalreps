@@ -6,6 +6,7 @@ import '@angular/compiler';
 import '@angular/platform-browser';
 import {enableProdMode} from '@angular/core';
 import 'rxjs';
+import 'lodash';
 
 const production = 'production';
 if (production === 'BRUNCH_ENVIRONMENT') {

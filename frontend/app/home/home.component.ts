@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {DeepstreamLocalClient} from '../deepstream.client';
 
 @Component({
   selector: 'home',
@@ -13,6 +12,6 @@ export default class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Hello Home component:', DeepstreamLocalClient);
+    console.log('Hello Home component');
   }
 }

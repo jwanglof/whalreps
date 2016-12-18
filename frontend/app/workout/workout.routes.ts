@@ -2,20 +2,31 @@ import {Routes, RouterModule} from '@angular/router';
 
 import WorkoutCreate from './create/workout.create.component';
 import WorkoutGet from './get/workout.get.component';
-import WorkoutGetAll from './getAll/workout.getAll.component';
+import WorkoutGetAll from './get-all/workout.getAll.component';
+import WorkoutCounterComponent from './counter/counter.component';
+
+const rootPath = 'workout';
 
 export const routes: Routes = [
   {
-    path: 'workout/create',
+    path: rootPath + '/create',
     component: WorkoutCreate
   },
   {
-    path: 'workout/get/:id',
+    path: rootPath + '/edit/:id',
+    component: WorkoutCreate
+  },
+  {
+    path: rootPath + '/get/:id',
     component: WorkoutGet
   },
   {
-    path: 'workout/showAll',
+    path: rootPath + '/showAll',
     component: WorkoutGetAll
+  },
+  {
+    path: rootPath + '/counter',
+    component: WorkoutCounterComponent
   }
 ];
 

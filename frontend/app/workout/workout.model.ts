@@ -1,19 +1,93 @@
-export class WorkoutModel {
-    // public id: string;
-    // public name: string;
-    // public description: string;
-    // public record: Object;
+import {ExerciseModel} from "./exercise.model";
+import {forEach} from 'lodash';
+import {SetModel} from "./set.model";
 
-    constructor()
-    constructor(public id?:string, public name?:string, public description?:string, public record?:Object) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.record = record;
+export class WorkoutModel {
+    private today = new Date();
+    private _id: string;
+    private _name: string = `${this.today.getUTCFullYear()}-${this.today.getUTCMonth()}-${this.today.getUTCDate()}`;
+    private _description: string;
+    private _record: Object;
+    private _exercises: Array<ExerciseModel> = [];
+
+    // constructor(public id?:string, public name?:string, public description?:string, public record?:Object) {
+    constructor() {}
+
+    toJSON(includeId: boolean = false) {
+        const values = {
+            name: this.name,
+            description: this.description,
+            exercises: []
+        };
+
+        if (this.exercises.length > 0) {
+            forEach(this.exercises, exercise => {
+                values.exercises.push(exercise.toJSON());
+            });
+        }
+
+        if (includeId) {
+            values['id'] = this.id;
+        }
+        return values;
     }
 
-    toJSON() {
-        let {id, name, description} = this;
-        return {id, name, description}
+    get id(): string {
+        return this._id;
+    }
+
+    set id(value: string) {
+        this._id = value;
+    }
+
+    get name(): string {
+        return this._name;
+    }
+
+    set name(value: string) {
+        this._name = value;
+    }
+
+    get description(): string {
+        return this._description;
+    }
+
+    set description(value: string) {
+        this._description = value;
+    }
+
+    get record(): Object {
+        return this._record;
+    }
+
+    set record(value: Object) {
+        this._record = value;
+    }
+
+    get exercises(): Array<ExerciseModel> {
+        return this._exercises;
+    }
+
+    set exercises(value: Array<ExerciseModel>) {
+        if (value.length > 0) {
+            const exercises: Array<ExerciseModel> = [];
+            forEach(value, v => {
+                const exercise = new ExerciseModel();
+                exercise.name = v.name;
+                exercise.sets = [];
+                if (v.sets.length > 0) {
+                    forEach(v.sets, s => {
+                        const set = new SetModel();
+                        set.repetitions = s.repetitions;
+                        set.weightKg = s.weightKg;
+                        exercise.sets.push(set);
+                    });
+                }
+                exercises.push(exercise);
+            });
+            this._exercises = exercises;
+        } else {
+            this._exercises = value;
+        }
     }
 }

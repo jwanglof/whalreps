@@ -1,0 +1,64 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-xs-12 col-sm-10">
+                <h2>{{workoutModel.name}}</h2>
+                <span class="small">{{workoutModel.description}}</span>
+            </div>
+            <div class="col-xs-12 col-sm-2 text-xs-right">
+                <button (click)="deleteWorkout()" type="button" class="close">&times;</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-block">
+        <div class="card card-block" *ngFor="let exerciseModel of workoutModel.exercises">
+            <div class="card-title">
+                <h4>{{exerciseModel.name}}</h4>
+            </div>
+            <div class="card-text row">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Repetitions</th>
+                            <th>Weight (kg)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let setModel of exerciseModel.sets; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{setModel.repetitions}}</td>
+                            <td>{{setModel.weightKg}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--<div class="card-text" *ngFor="let exerciseModel of workoutModel.exercises; let i = index">-->
+            <!--<table class="table">-->
+                <!--<thead>-->
+                    <!--<tr>-->
+                        <!--<th>#</th>-->
+                        <!--<th>Repetitions</th>-->
+                        <!--<th>Weight (kg)</th>-->
+                    <!--</tr>-->
+                <!--</thead>-->
+                <!--<tbody>-->
+                    <!--<tr *ngFor="let setModel of exerciseModel.sets">-->
+                        <!--<td>{{i}}</td>-->
+                        <!--<td>{{setModel.repetitions}}</td>-->
+                        <!--<td>{{setModel.weightKg}}</td>-->
+                    <!--</tr>-->
+                <!--</tbody>-->
+            <!--</table>-->
+            <!--&lt;!&ndash;{{exerciseModel.name}}-->
+            <!--<one-set *ngFor="let setModel of exerciseModel.sets" [setModel]="setModel" title="Set #{{i + 1}}"></one-set>&ndash;&gt;-->
+        <!--</div>-->
+    </div>
+    <div class="card-footer text-xs-right">
+        <a [routerLink]="['/workout', 'edit', workoutModel.id]" [hidden]="hideEditButton" class="btn btn-info">Edit</a>
+        <a [routerLink]="['/workout', 'get', workoutModel.id]" [hidden]="hideGetButton" class="btn btn-primary">Go to</a>
+
+        <button (click)="addExercise()" type="button" class="btn btn-primary" [hidden]="hideAddExerciseButton">Add exercise</button>
+    </div>
+</div>

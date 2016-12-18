@@ -1,28 +1,34 @@
-import {Component} from '@angular/core';
-import {DeepstreamLocalClient} from '../../deepstream.client';
-import {WorkoutModel} from '../workout.model';
+import {Component} from "@angular/core";
+import {WorkoutModel} from "../workout.model";
+import {ActivatedRoute} from "@angular/router";
+import {WorkoutService} from "../workout.service";
 
 @Component({
     selector: 'workout-create-form',
     styles: [require('./workout.create.component.css')],
     template: require('./workout.create.component.html'),
-    moduleId: module.id
+    providers: [WorkoutService]
 })
 
 export default class WorkoutCreateComponent {
-    model: WorkoutModel;
-    
-    success: boolean;
-    error: boolean;
+    private id: string;
+
+    model: WorkoutModel = new WorkoutModel();
+    title: String = 'Create workout';
+    buttonText: String = 'Create';
+
+    success: boolean = false;
+    error: boolean = false;
     
     errorMessage: string;
-    
-    result: Object;
 
-    constructor() {
-        this.success = false;
-        this.error = false;
-        this.model = new WorkoutModel();
+    constructor(private route: ActivatedRoute, private workoutService: WorkoutService) {
+        this.id = this.route.snapshot.params['id'];
+        if (this.id) {
+            this.title = 'Edit workout';
+            this.buttonText = 'Edit';
+            this.getWorkout();
+        }
     }
 
     private clearError() {
@@ -32,18 +38,46 @@ export default class WorkoutCreateComponent {
 
     onSubmit() {
         this.clearError();
+        if (this.id) {
+            this.editWorkout();
+        } else {
+            this.createWorkout();
+        }
+    }
 
-        DeepstreamLocalClient.rpc.make('workout:create', this.model.toJSON(), (error, result) => {
-            if (error) {
+    private getWorkout() {
+        this.workoutService.getWorkout(this.id)
+            .then(workoutModel => {
+                this.model = workoutModel;
+                this.model.id = this.id;
+            })
+            .catch(err => {
                 this.error = true;
-                this.errorMessage = 'Hej du!';
-            } else {
-                console.log(result);
+                this.errorMessage = err;
+            });
+    }
+
+    private createWorkout() {
+        this.workoutService.createWorkout(this.model)
+            .then(workoutId => {
+                // Set the ID on the model so we can go-to it via the success-link
+                this.model.id = workoutId;
                 this.success = true;
-                // this.model = new Workout();
-                this.result = result;
-                console.log(this.result);
-            }
-        });
+            })
+            .catch(err => {
+                this.error = true;
+                this.errorMessage = err;
+            });
+    }
+
+    private editWorkout() {
+        this.workoutService.editWorkout(this.model)
+            .then(() => {
+                this.success = true;
+            })
+            .catch(err => {
+                this.error = true;
+                this.errorMessage = err;
+            });
     }
 }

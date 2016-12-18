@@ -7,6 +7,7 @@ import {AppComponent} from './app.component';
 import {Home} from './home';
 import {About} from './about';
 import {NavBarComponent} from './navbar.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {WorkoutModule} from './workout/workout.module';
 
@@ -16,7 +17,9 @@ import {WorkoutModule} from './workout/workout.module';
         FormsModule,
         routing,
         HttpModule,
-        
+
+        NgbModule.forRoot(),
+
         WorkoutModule
     ],
     declarations: [

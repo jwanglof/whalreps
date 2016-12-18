@@ -1,4 +1,7 @@
 <div class="row">
-    <h1>All workouts</h1>
+    <div class="col-xs-12">
+        <h1>All workouts</h1>
+    </div>
+
     <one-workout *ngFor="let model of models" [workoutModel]="model" class="col-sm-6 col-xs-12"></one-workout>
 </div>

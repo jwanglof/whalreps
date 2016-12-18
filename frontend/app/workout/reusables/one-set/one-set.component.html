@@ -1,0 +1,46 @@
+<!--<div class="card">-->
+    <!--<div class="card-header">-->
+        <!--<div class="row">-->
+            <!--<div class="col-xs-12 col-sm-10">-->
+                <!--<h2>SET</h2>-->
+            <!--</div>-->
+            <!--<div class="col-xs-12 col-sm-2 text-xs-right">-->
+                <!--&lt;!&ndash;<button (click)="deleteWorkout()" type="button" class="close">&times;</button>&ndash;&gt;-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="card-block">-->
+        <!--<p class="card-text">-->
+            <!--Text-->
+        <!--</p>-->
+    <!--</div>-->
+    <!--<div class="card-footer text-xs-right">-->
+        <!--Footer-->
+        <!--&lt;!&ndash;<button (click)="addExercise()" type="button" class="btn btn-primary">Add exercise</button>&ndash;&gt;-->
+    <!--</div>-->
+<!--</div>-->
+
+<div class="card card-block">
+    <div class="card-title">
+        <h4>{{title}}</h4>
+    </div>
+    <div class="card-text row">
+        <div class="col-xs-6">
+            Repetitions:
+            <br />
+            {{setModel.repetitions}}
+        </div>
+        <div class="col-xs-6">
+            Weight (kg):
+            <br />
+            {{setModel.weightKg}}
+        </div>
+        <!--<label for="repetitions">Repetitions</label>-->
+        <!--<input type="number" class="form-control" id="repetitions" name="repetitions"-->
+               <!--[(ngModel)]="setModel.repetitions" />-->
+        <!---->
+        <!--<label for="weight">Weight (kg)</label>-->
+        <!--<input type="number" class="form-control" id="weight" name="weight"-->
+               <!--[(ngModel)]="setModel.weightKg" />-->
+    </div>
+</div>

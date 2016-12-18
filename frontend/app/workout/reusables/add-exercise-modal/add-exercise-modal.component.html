@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h2>Add exercise</h2>
+</div>
+<div class="modal-body">
+    <form #addExerciseForm="ngForm">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name"
+                   [(ngModel)]="exerciseModel.name" required />
+        </div>
+
+        <one-set-create class="form-group"
+                        *ngFor="let setModel of exerciseModel.sets; let i = index"
+                        [setModel]="setModel"
+                        title="Set #{{i + 1}}"></one-set-create>
+
+        <div class="form-group">
+            <button class="btn" (click)="addSet()">Add set</button>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" (click)="onSubmit()" [disabled]="!addExerciseForm.form.valid">{{buttonText}}</button>
+    <button class="btn btn-warning" (click)="activeModal.dismiss()">Close</button>
+</div>
