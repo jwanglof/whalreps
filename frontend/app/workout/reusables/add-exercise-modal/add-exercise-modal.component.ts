@@ -3,6 +3,7 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {WorkoutModel} from "../../workout.model";
 import {ExerciseModel} from "../../exercise.model";
 import {SetModel} from "../../set.model";
+import {filter} from "lodash";
 
 @Component({
     selector: 'add-exercise-modal',
@@ -12,7 +13,7 @@ import {SetModel} from "../../set.model";
 export default class AddExerciseModal implements OnInit {
     @Input() workoutModel: WorkoutModel;
 
-    buttonText: string = 'Add';
+    buttonText: string = 'Add exercise';
     exerciseModel: ExerciseModel = new ExerciseModel();
 
     constructor(public activeModal: NgbActiveModal) {}
@@ -29,7 +30,9 @@ export default class AddExerciseModal implements OnInit {
         this.exerciseModel.sets.push(new SetModel());
     }
 
-    removeSet(model: SetModel) {
-        console.log(2221, model);
+    removeSet(setModel: SetModel) {
+        this.exerciseModel.sets = filter(this.exerciseModel.sets, s => {
+            return s.id !== setModel.id;
+        });
     }
 }

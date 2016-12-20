@@ -33,7 +33,8 @@ export class WorkoutService {
                                     const data = record.get();
                                     model.id = id;
                                     model.name = data.name;
-                                    model.description = data.description;
+                                    model.notes = data.notes;
+                                    model.exercises = data.exercises;
 
                                     // Add the model to models
                                     workouts.push(model);
@@ -68,7 +69,7 @@ export class WorkoutService {
                             const model = new WorkoutModel();
                             model.id = id;
                             model.name = data.name;
-                            model.description = data.description;
+                            model.notes = data.notes;
                             model.record = dsClient.record.getRecord(`workout/${id}`);
                             model.exercises = data.exercises;
                             resolve(model);

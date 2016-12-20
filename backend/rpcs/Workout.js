@@ -12,6 +12,10 @@ export default function (deepstreamClient) {
 
     const newRecord = deepstreamClient.record.getRecord(`workout/${id}`);
     newRecord.whenReady(() => {
+      const now = Date.now();
+      data.created = now;
+      data.updated = now;
+
       newRecord.set(data);
       newRecord.discard();
 
@@ -67,7 +71,6 @@ export default function (deepstreamClient) {
   });
 
   deepstreamClient.rpc.provide('workout:edit', (data, response) => {
-    console.log(2222, data);
     if (!data.id) {
       response.error('workout:edit - No ID provided!');
     } else {
@@ -75,8 +78,9 @@ export default function (deepstreamClient) {
       workoutRecord.whenReady(() => {
         workoutRecord.set({
           name: data.name,
-          description: data.description,
-          exercises: data.exercises
+          notes: data.notes,
+          exercises: data.exercises,
+          updated: Date.now()
         });
         response.send();
       });

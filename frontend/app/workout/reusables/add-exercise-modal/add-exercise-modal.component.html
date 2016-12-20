@@ -12,10 +12,10 @@
         <one-set-create class="form-group"
                         *ngFor="let setModel of exerciseModel.sets; let i = index"
                         [setModel]="setModel"
-                        title="Set #{{i + 1}}"></one-set-create>
+                        title="Set #{{i + 1}}" (discardEmitter)="removeSet($event)"></one-set-create>
 
         <div class="form-group">
-            <button class="btn" (click)="addSet()">Add set</button>
+            <button class="btn" (click)="addSet()">&#43; Add set</button>
         </div>
     </form>
 </div>

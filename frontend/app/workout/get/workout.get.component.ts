@@ -24,7 +24,6 @@ export default class WorkoutCreateComponent implements OnInit {
     ngOnInit() {
         this.workoutService.getWorkout(this.id)
             .then(model => {
-                console.log(444333, model);
                 this.model = model;
             })
             .catch(err => {

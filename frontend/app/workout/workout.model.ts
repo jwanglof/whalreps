@@ -5,18 +5,18 @@ import {SetModel} from "./set.model";
 export class WorkoutModel {
     private today = new Date();
     private _id: string;
-    private _name: string = `${this.today.getUTCFullYear()}-${this.today.getUTCMonth()}-${this.today.getUTCDate()}`;
-    private _description: string;
+    private _name: string = `${this.today.getUTCFullYear()}-${this.today.getUTCMonth() + 1}-${this.today.getUTCDate()}`;
+    private _notes: string;
     private _record: Object;
     private _exercises: Array<ExerciseModel> = [];
 
-    // constructor(public id?:string, public name?:string, public description?:string, public record?:Object) {
+    // constructor(public id?:string, public name?:string, public notes?:string, public record?:Object) {
     constructor() {}
 
     toJSON(includeId: boolean = false) {
         const values = {
             name: this.name,
-            description: this.description,
+            notes: this.notes,
             exercises: []
         };
 
@@ -48,12 +48,12 @@ export class WorkoutModel {
         this._name = value;
     }
 
-    get description(): string {
-        return this._description;
+    get notes(): string {
+        return this._notes;
     }
 
-    set description(value: string) {
-        this._description = value;
+    set notes(value: string) {
+        this._notes = value;
     }
 
     get record(): Object {

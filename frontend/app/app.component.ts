@@ -24,9 +24,6 @@ import {Component} from '@angular/core';
     <main>
       <router-outlet></router-outlet>
     </main>
-    <footer>
-      Brunch for Angular 2 by <a [href]="url">Colin Bate</a>
-    </footer>
     <template ngbModalContainer></template>
   `
 })
