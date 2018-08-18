@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import asd from "./reducer_asd";
+import set from "./set";
 
 const rootReducer = combineReducers({
-  asd
+  set
 });
 
 export default rootReducer;
