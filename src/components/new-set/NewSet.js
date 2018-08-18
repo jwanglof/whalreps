@@ -11,7 +11,8 @@ export class NewSet extends Component {
 
 function mapStateToProps(state) {
   return {
-    lul: 'hej'
+    lul: 'hej',
+    foo: 'bar'
   }
 }
 
