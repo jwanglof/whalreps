@@ -23,7 +23,6 @@ export default class WorkoutGetAllComponent implements OnInit {
     ngOnInit() {
         this.workoutService.getAllWorkouts()
             .then(workouts => {
-                console.log(34333, workouts);
                 this.models = workouts;
             })
             .catch(err => {

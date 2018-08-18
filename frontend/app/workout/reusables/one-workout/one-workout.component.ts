@@ -5,6 +5,10 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import AreYouSureModal from "../../../reusables/modals/are-you-sure/areYouSure.modal";
 import {WorkoutService} from "../../workout.service";
 import AddExerciseModal from "../add-exercise-modal/add-exercise-modal.component";
+import {ExerciseModel} from "../../exercise.model";
+import {SetModel} from "../../set.model";
+
+import {filter, forEach} from 'lodash';
 
 @Component({
     selector: 'one-workout',
@@ -20,9 +24,7 @@ export class OneWorkoutComponent implements OnInit {
 
     constructor(private modalService: NgbModal, private ref:ElementRef, private workoutService: WorkoutService) {}
 
-    ngOnInit() {
-        console.log(1111, this);
-    }
+    ngOnInit() {}
 
     deleteWorkout() {
         const modalRef = this.modalService.open(AreYouSureModal);
@@ -45,7 +47,6 @@ export class OneWorkoutComponent implements OnInit {
     addExercise() {
         const modalRef = this.modalService.open(AddExerciseModal, {backdrop: 'static', size: 'lg'});
         modalRef.componentInstance.workoutModel = this.workoutModel;
-        console.log(333, this.workoutModel);
         modalRef.result
             .then(() => {
                 console.log('then', this.workoutModel);
@@ -56,6 +57,47 @@ export class OneWorkoutComponent implements OnInit {
             })
             .catch(() => {
                 console.log('catech');
+            });
+    }
+
+    deleteExercise(exerciseModel: ExerciseModel) {
+        const modalRef = this.modalService.open(AreYouSureModal);
+        modalRef.componentInstance.body = `Are you sure you want to delete the exercise named: ${exerciseModel.name}? This CAN'T be un-done!`;
+        modalRef.result
+            .then(() => {
+                // Yes
+                this.workoutModel.exercises = filter(this.workoutModel.exercises, e => {
+                    return e.id !== exerciseModel.id;
+                });
+                // Update the workout-model
+                return this.workoutService.editWorkout(this.workoutModel);
+            })
+            .then(() => {
+                console.log('DOOOne?');
+            })
+            .catch(() => {
+                // No
+            });
+    }
+
+    deleteSet(exerciseModel: ExerciseModel, setModel: SetModel) {
+        console.log('Remove set!', setModel);
+        const modalRef = this.modalService.open(AreYouSureModal);
+        modalRef.componentInstance.body = `Are you sure you want to delete the set? This CAN'T be un-done!`;
+        modalRef.result
+            .then(() => {
+                // Yes
+                exerciseModel.sets = filter(exerciseModel.sets, m => {
+                    return m.id !== setModel.id;
+                });
+                // Update the workout-model
+                return this.workoutService.editWorkout(this.workoutModel);
+            })
+            .then(() => {
+                console.log('DOOOne?');
+            })
+            .catch(() => {
+                // No
             });
     }
 }

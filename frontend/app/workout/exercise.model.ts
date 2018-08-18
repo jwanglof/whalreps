@@ -1,28 +1,29 @@
 import {SetModel} from "./set.model";
 import {forEach} from 'lodash';
+import {UUID} from 'angular2-uuid';
 
 export class ExerciseModel {
     // private _id: string;
+    // Create a unique id so that we can find this exercise in the workout's exercise-list if necessary
+    id: string = UUID.UUID();
     private _name: string;
     private _sets: Array<SetModel> = [];
 
     constructor() {}
 
-    toJSON(includeId: boolean = false) {
+    toJSON() {
         const values = {
             name: this.name,
             sets: []
         };
 
+        // Make the set-list pretty
         if (this.sets.length > 0) {
             forEach(this.sets, set => {
                 values.sets.push(set.toJSON());
             });
         }
 
-        // if (includeId) {
-        //     values['id'] = this.id;
-        // }
         return values;
     }
 

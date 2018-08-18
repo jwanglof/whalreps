@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {WorkoutModel} from "../workout.model";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {WorkoutService} from "../workout.service";
 
 @Component({
@@ -18,12 +18,12 @@ export default class WorkoutCreateComponent {
     buttonText: String = 'Create';
 
     success: boolean = false;
+
     error: boolean = false;
-    
     errorMessage: string;
 
-    constructor(private route: ActivatedRoute, private workoutService: WorkoutService) {
-        this.id = this.route.snapshot.params['id'];
+    constructor(private activatedRoute: ActivatedRoute, private router: Router, private workoutService: WorkoutService) {
+        this.id = this.activatedRoute.snapshot.params['id'];
         if (this.id) {
             this.title = 'Edit workout';
             this.buttonText = 'Edit';
@@ -61,8 +61,9 @@ export default class WorkoutCreateComponent {
         this.workoutService.createWorkout(this.model)
             .then(workoutId => {
                 // Set the ID on the model so we can go-to it via the success-link
-                this.model.id = workoutId;
-                this.success = true;
+                // this.model.id = workoutId;
+                // this.success = true;
+                this.router.navigate(['/workout', 'get', workoutId])
             })
             .catch(err => {
                 this.error = true;
@@ -73,7 +74,8 @@ export default class WorkoutCreateComponent {
     private editWorkout() {
         this.workoutService.editWorkout(this.model)
             .then(() => {
-                this.success = true;
+                // this.success = true;
+                this.router.navigate(['/workout', 'get', this.model.id])
             })
             .catch(err => {
                 this.error = true;

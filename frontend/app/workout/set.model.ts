@@ -1,5 +1,9 @@
+import {UUID} from 'angular2-uuid';
+
 export class SetModel {
     // private _id: string;
+    // Create a unique id so that we can find this set in the exercises's set-list if necessary
+    id: string = UUID.UUID();
     private _repetitions: number = 0;
     private _weightKg: number = 0;
 

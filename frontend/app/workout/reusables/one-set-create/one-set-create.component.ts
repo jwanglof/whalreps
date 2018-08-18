@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {SetModel} from "../../set.model";
 
 @Component({
@@ -10,9 +10,12 @@ export class OneSetCreateComponent {
     @Input() setModel: SetModel;
     @Input() title: string;
 
+    @Output() discardEmitter = new EventEmitter();
+
     constructor() {}
 
     discard() {
-        console.log('Discard the fucker!');
+        console.log('Discard the discardEmitter!');
+        this.discardEmitter.emit(this.setModel);
     }
 }
