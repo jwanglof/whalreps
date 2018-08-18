@@ -30,9 +30,6 @@
     }
   },
   "lint-staged": {
-    "*.js": [
-      "npm run pretty",
-      "git add"
-    ]
+    "src/**/*.{js,jsx,json,css,md}": ["npm run pretty", "git add"]
   }
 }
