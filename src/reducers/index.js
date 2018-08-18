@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
+import asd from "./reducer_asd";
 
 const rootReducer = combineReducers({
-  contacts: ContactsReducer,
-  activeContact: ActiveContactReducer
+  asd
 });
 
 export default rootReducer;
