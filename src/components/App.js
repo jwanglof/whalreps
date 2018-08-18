@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import NewSetConnected from "./new-repetition/NewRepetition";
+import NewRepetitionConnected from "./new-repetition/NewRepetition";
+import NewSetConnected from "./new-set/NewSet";
 
 class App extends Component {
   render() {
@@ -9,6 +10,7 @@ class App extends Component {
           <h1>Whalreps</h1>
         </header>
         <NewSetConnected />
+        <NewRepetitionConnected />
       </div>
     );
   }
