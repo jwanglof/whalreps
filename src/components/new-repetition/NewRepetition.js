@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addSet, increaseSetId } from "../../actions/creators/set";
 import {
   Form,
   FormGroup,
@@ -10,6 +9,10 @@ import {
   Button,
   Alert
 } from "reactstrap";
+import {
+  addRepetition,
+  increaseRepetitionId
+} from "../../actions/creators/repetition";
 
 class NewRepetition extends Component {
   WEIGHT = "WEIGHT";
@@ -35,19 +38,19 @@ class NewRepetition extends Component {
   };
 
   saveAndDuplicate = () => {
-    this.persistSetData(false);
+    this.persistRepetitionData(false);
   };
 
-  persistSetData = (setDefaultState = true) => {
-    this.props.addSet(this.mapStateToSet());
-    this.props.increaseSetId();
+  persistRepetitionData = (setDefaultState = true) => {
+    this.props.addRepetition(this.mapStateToRepetition());
+    this.props.increaseRepetitionId();
 
     if (setDefaultState) {
       this.setState(this.getDefaultState());
     }
   };
 
-  mapStateToSet = () => {
+  mapStateToRepetition = () => {
     return {
       weight: this.state[this.WEIGHT],
       repetitions: this.state[this.REPETITIONS]
@@ -57,7 +60,9 @@ class NewRepetition extends Component {
   render() {
     return (
       <div>
-        <Alert color="primary">Current rep: {this.props.currentSetId}</Alert>
+        <Alert color="primary">
+          Current rep: {this.props.currentRepetitionId}
+        </Alert>
         <Form>
           <FormGroup>
             <Label for={this.WEIGHT} size="lg">
@@ -88,7 +93,7 @@ class NewRepetition extends Component {
         </Form>
 
         <ButtonGroup className="btn-block" vertical>
-          <Button color="primary" onClick={this.persistSetData}>
+          <Button color="primary" onClick={this.persistRepetitionData}>
             Save
           </Button>
           <Button color="secondary" onClick={this.saveAndDuplicate}>
@@ -103,14 +108,14 @@ class NewRepetition extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addSet: setData => dispatch(addSet(setData)),
-    increaseSetId: () => dispatch(increaseSetId())
+    addRepetition: repetitionData => dispatch(addRepetition(repetitionData)),
+    increaseRepetitionId: () => dispatch(increaseRepetitionId())
   };
 }
 
 function mapStateToProps(state) {
   return {
-    currentSetId: state.set.currentSetId
+    currentRepetitionId: state.repetition.currentRepetitionId
   };
 }
 
