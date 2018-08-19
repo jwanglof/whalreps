@@ -10,7 +10,7 @@ class App extends Component {
           <h1>Whalreps</h1>
         </header>
         <NewSetConnected />
-        <NewRepetitionConnected />
+        {/*<NewRepetitionConnected />*/}
       </div>
     );
   }

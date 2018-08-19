@@ -10,6 +10,11 @@ const initialState = {
   currentRepetitionId: 1
 };
 
+const emptyRepetition = {
+  weight: 0,
+  repetitions: 0
+};
+
 function repetition(state = initialState, action) {
   const clone = Object.assign({}, state);
 
@@ -31,6 +36,8 @@ function repetition(state = initialState, action) {
       return clone;
     case INCREASE_REPETITION_ID:
       clone.currentRepetitionId += 1;
+      return clone;
+    case "GET_EMPTY_REPETITION_WITH_ID":
       return clone;
     default:
       return clone;

@@ -30,6 +30,7 @@ function set(state = initialState, action) {
       return clone;
     case ADD_REPETITION_TO_SET:
       console.log("ADD_REPETITION_TO_SET", clone, action);
+
       return clone;
     default:
       return clone;

@@ -1,5 +1,6 @@
 import {
   ADD_REPETITION,
+  GET_EMPTY_REPETITION_WITH_ID,
   INCREASE_REPETITION_ID,
   REMOVE_REPETITION
 } from "../types/repetition";
@@ -14,4 +15,8 @@ export function removeRepetition(index) {
 
 export function increaseRepetitionId() {
   return { type: INCREASE_REPETITION_ID };
+}
+
+export function getEmptyRepetitionWithId() {
+  return { type: GET_EMPTY_REPETITION_WITH_ID };
 }
